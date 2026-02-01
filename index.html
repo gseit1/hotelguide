@@ -58,6 +58,43 @@
             background-color: rgb(20 116 184 / 0.1);
             color: #1474b8;
         }
+        
+        /* Mobile accordion styles */
+        @media (max-width: 1023px) {
+            .section-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.3s ease-out;
+            }
+            
+            .section-content.expanded {
+                max-height: 5000px;
+                transition: max-height 0.5s ease-in;
+            }
+            
+            .section-header {
+                cursor: pointer;
+                user-select: none;
+            }
+            
+            .expand-icon {
+                transition: transform 0.3s ease;
+            }
+            
+            .expand-icon.rotated {
+                transform: rotate(180deg);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .section-content {
+                max-height: none !important;
+            }
+            
+            .expand-icon {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
@@ -79,18 +116,12 @@
             <span>Outdoor</span>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
         </a>
-        <a href="taverns.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
-            <span>Taverns</span>
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-        </a>
+      
         <a href="transport.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
             <span>Transport</span>
             <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
         </a>
-        <a href="gamos.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
-            <span>Wedding</span>
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
-        </a>
+      
     </nav>
     <div class="flex items-center gap-4">
         <button id="langToggle" class="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-card-dark hover:border-primary transition-all">
@@ -110,7 +141,6 @@
             <span class="material-symbols-outlined text-6xl lg:text-7xl">diamond</span>
         </div>
         <h1 class="text-5xl lg:text-7xl xl:text-8xl font-bold tracking-[0.15em] text-slate-900 dark:text-white uppercase mb-4">Azure</h1>
-        <p class="text-xl lg:text-2xl xl:text-3xl text-slate-600 dark:text-slate-300 tracking-[0.3em] uppercase font-light" data-lang="subtitle">Digital Concierge</p>
         <p class="text-base lg:text-lg text-slate-500 dark:text-slate-400 mt-6 max-w-2xl mx-auto" data-lang="hero-desc">Your personal guide to luxury experiences and exclusive destinations</p>
     </div>
 </section>
@@ -147,14 +177,16 @@
 <div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
 <!-- Section 1: About Us -->
 <section id="about" class="scroll-mt-20">
-<div class="flex items-center gap-5 mb-8">
+<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('about')">
 <span class="material-symbols-outlined text-primary text-4xl">info</span>
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-about">About Us</h2>
-<a href="facilities.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<a href="facilities.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-facilities">Explore All Facilities</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </a>
+<span class="material-symbols-outlined text-slate-400 ml-auto lg:hidden expand-icon">expand_more</span>
 </div>
+<div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6" data-lang="amenities-title">Hotel Amenities</h3>
 <div class="space-y-4">
@@ -204,18 +236,21 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <!-- Section 2: Outdoor Activities -->
 <section id="outdoor" class="scroll-mt-20">
-<div class="flex items-center gap-5 mb-8">
+<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('outdoor')">
 <span class="material-symbols-outlined text-primary text-4xl">explore</span>
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-outdoor">Outdoor Activities</h2>
-<a href="outdoor1.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<a href="outdoor1.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-outdoor">Explore All Activities</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </a>
+<span class="material-symbols-outlined text-slate-400 ml-auto lg:hidden expand-icon">expand_more</span>
 </div>
+<div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="mb-5 flex justify-between items-end">
 <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider" data-lang="luxury-boats">Luxury Boats</h3>
@@ -248,18 +283,21 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <!-- Section 3: Restaurants -->
 <section id="restaurants" class="scroll-mt-20">
-<div class="flex items-center gap-5 mb-8">
+<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('restaurants')">
 <span class="material-symbols-outlined text-primary text-4xl">restaurant_menu</span>
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-restaurants">Restaurants</h2>
-<a href="restaurants.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<a href="restaurants.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-restaurants">Explore All Restaurants</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </a>
+<span class="material-symbols-outlined text-slate-400 ml-auto lg:hidden expand-icon">expand_more</span>
 </div>
+<div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="grid grid-cols-2 gap-4">
 <!-- Card 1 -->
@@ -291,18 +329,21 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <!-- Section 4: Day & Night -->
 <section id="daynight" class="scroll-mt-20">
-<div class="flex items-center gap-5 mb-8">
+<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('daynight')">
 <span class="material-symbols-outlined text-primary text-4xl">wb_twilight</span>
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-daynight">Day &amp; Night</h2>
-<a href="nightlife.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<a href="nightlife.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-nightlife">Explore Nightlife</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </a>
+<span class="material-symbols-outlined text-slate-400 ml-auto lg:hidden expand-icon">expand_more</span>
 </div>
+<div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="space-y-5">
 <!-- Option 1 -->
@@ -325,18 +366,21 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 
 <!-- Section 5: Transport -->
 <section id="transport" class="scroll-mt-20">
-<div class="flex items-center gap-5 mb-8">
+<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('transport')">
 <span class="material-symbols-outlined text-primary text-4xl">directions_car</span>
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-transport">Transport</h2>
-<a href="transport.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<a href="transport.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-transport">View All Options</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </a>
+<span class="material-symbols-outlined text-slate-400 ml-auto lg:hidden expand-icon">expand_more</span>
 </div>
+<div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="grid gap-4">
 <button class="flex w-full items-center justify-center gap-4 rounded-xl bg-primary py-5 text-white shadow-lg shadow-primary/30 transition-all hover:scale-105 hover:shadow-xl active:scale-95">
@@ -353,11 +397,25 @@
 </button>
 </div>
 </div>
+</div>
 </section>
 </div>
 </div>
 </main>
 <script>
+// Mobile accordion functionality
+function toggleSection(sectionId) {
+    // Only work on mobile screens
+    if (window.innerWidth >= 1024) return;
+    
+    const section = document.getElementById(sectionId);
+    const content = section.querySelector('.section-content');
+    const icon = section.querySelector('.expand-icon');
+    
+    content.classList.toggle('expanded');
+    icon.classList.toggle('rotated');
+}
+
 // Language translations
 const translations = {
     en: {
