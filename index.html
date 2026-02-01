@@ -75,6 +75,15 @@
             .section-header {
                 cursor: pointer;
                 user-select: none;
+                padding: 1rem;
+                margin: -1rem -0.5rem;
+                border-radius: 1rem;
+                transition: background-color 0.2s ease;
+            }
+            
+            .section-header:active {
+                background-color: rgba(20, 116, 184, 0.05);
+                transform: scale(0.98);
             }
             
             .expand-icon {
@@ -83,6 +92,24 @@
             
             .expand-icon.rotated {
                 transform: rotate(180deg);
+            }
+            
+            /* Back to top button */
+            #backToTop {
+                position: fixed;
+                bottom: 2rem;
+                right: 1.5rem;
+                z-index: 40;
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+                transition: all 0.3s ease;
+                pointer-events: none;
+            }
+            
+            #backToTop.show {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                pointer-events: auto;
             }
         }
         
@@ -94,18 +121,22 @@
             .expand-icon {
                 display: none;
             }
+            
+            #backToTop {
+                display: none;
+            }
         }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
 <div class="w-full mx-auto bg-card-light dark:bg-card-dark flex flex-col min-h-screen">
 <!-- Top Navigation -->
-<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-card-dark/95 backdrop-blur-md px-8 lg:px-16 xl:px-24 py-4">
-    <a href="index.html" class="flex items-center gap-5 text-slate-900 dark:text-white hover:opacity-80 transition-opacity">
-        <div class="size-10 text-primary flex items-center justify-center">
-            <span class="material-symbols-outlined text-4xl">diamond</span>
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-card-dark/95 backdrop-blur-md px-4 sm:px-6 lg:px-16 xl:px-24 py-3 lg:py-4">
+    <a href="index.html" class="flex items-center gap-3 lg:gap-5 text-slate-900 dark:text-white hover:opacity-80 transition-opacity">
+        <div class="size-8 lg:size-10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-3xl lg:text-4xl">diamond</span>
         </div>
-        <h2 class="text-2xl lg:text-3xl font-bold leading-tight tracking-tight">Azure Hotel</h2>
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight tracking-tight">Azure Hotel</h2>
     </a>
     <div class="flex items-center gap-4">
         <button id="langToggle" class="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-card-dark hover:border-primary transition-all">
@@ -115,14 +146,14 @@
     </div>
 </header>
 <!-- Hero Header -->
-<section class="relative py-16 lg:py-24 xl:py-32 flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 via-white dark:from-primary/10 dark:via-card-dark to-white dark:to-card-dark z-10 px-8 lg:px-16 xl:px-24 overflow-hidden">
+<section class="relative py-12 sm:py-16 lg:py-24 xl:py-32 flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 via-white dark:from-primary/10 dark:via-card-dark to-white dark:to-card-dark z-10 px-4 sm:px-6 lg:px-16 xl:px-24 overflow-hidden">
     <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')] opacity-30"></div>
     <div class="relative z-10 text-center max-w-4xl">
-        <div class="size-20 lg:size-24 mb-8 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary shadow-lg">
-            <span class="material-symbols-outlined text-6xl lg:text-7xl">diamond</span>
+        <div class="size-16 sm:size-20 lg:size-24 mb-6 lg:mb-8 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary shadow-lg">
+            <span class="material-symbols-outlined text-5xl sm:text-6xl lg:text-7xl">diamond</span>
         </div>
-        <h1 class="text-5xl lg:text-7xl xl:text-8xl font-bold tracking-[0.15em] text-slate-900 dark:text-white uppercase mb-4">Azure</h1>
-        <p class="text-base lg:text-lg text-slate-500 dark:text-slate-400 mt-6 max-w-2xl mx-auto" data-lang="hero-desc">Your personal guide to luxury experiences and exclusive destinations</p>
+        <h1 class="text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-bold tracking-[0.15em] text-slate-900 dark:text-white uppercase mb-4">Azure</h1>
+        <p class="text-sm sm:text-base lg:text-lg text-slate-500 dark:text-slate-400 mt-4 lg:mt-6 max-w-2xl mx-auto px-4" data-lang="hero-desc">Your personal guide to luxury experiences and exclusive destinations</p>
     </div>
 </section>
 <!-- Main Content -->
@@ -155,12 +186,12 @@
 
 <!-- Content Area -->
 <div class="flex-1 overflow-y-auto">
-<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+<div class="px-4 sm:px-6 lg:px-12 xl:px-16 py-8 sm:py-10 lg:py-12 space-y-10 sm:space-y-12 lg:space-y-16 xl:space-y-24">
 <!-- Section 1: About Us -->
 <section id="about" class="scroll-mt-20">
-<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('about')">
-<span class="material-symbols-outlined text-primary text-4xl">info</span>
-<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-about">About Us</h2>
+<div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('about')">
+<span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">info</span>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-about">About Us</h2>
 <a href="facilities.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-facilities">Explore All Facilities</span>
 <span class="material-symbols-outlined">arrow_forward</span>
@@ -227,9 +258,9 @@
 
 <!-- Section 2: Outdoor Activities -->
 <section id="outdoor" class="scroll-mt-20">
-<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('outdoor')">
-<span class="material-symbols-outlined text-primary text-4xl">explore</span>
-<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-outdoor">Outdoor Activities</h2>
+<div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('outdoor')">
+<span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">explore</span>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-outdoor">Outdoor Activities</h2>
 <a href="outdoor1.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-outdoor">Explore All Activities</span>
 <span class="material-symbols-outlined">arrow_forward</span>
@@ -277,9 +308,9 @@
 </div>
 </section>
 <section id="restaurants" class="scroll-mt-20">
-<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('restaurants')">
-<span class="material-symbols-outlined text-primary text-4xl">restaurant_menu</span>
-<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-restaurants">Restaurants</h2>
+<div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('restaurants')">
+<span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">restaurant_menu</span>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-restaurants">Restaurants</h2>
 <a href="restaurants.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-restaurants">Explore All Restaurants</span>
 <span class="material-symbols-outlined">arrow_forward</span>
@@ -326,9 +357,9 @@
 </div>
 </section>
 <section id="daynight" class="scroll-mt-20">
-<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('daynight')">
-<span class="material-symbols-outlined text-primary text-4xl">wb_twilight</span>
-<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-daynight">Day &amp; Night</h2>
+<div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('daynight')">
+<span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">wb_twilight</span>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-daynight">Day &amp; Night</h2>
 <a href="nightlife.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-nightlife">Explore Nightlife</span>
 <span class="material-symbols-outlined">arrow_forward</span>
@@ -366,9 +397,9 @@
 </div>
 </section>
 <section id="transport" class="scroll-mt-20">
-<div class="section-header flex items-center gap-5 mb-8" onclick="toggleSection('transport')">
-<span class="material-symbols-outlined text-primary text-4xl">directions_car</span>
-<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-transport">Transport</h2>
+<div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('transport')">
+<span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">directions_car</span>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-transport">Transport</h2>
 <a href="transport.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-transport">View All Options</span>
 <span class="material-symbols-outlined">arrow_forward</span>
@@ -401,6 +432,11 @@
 </section>
 </div>
 </div>
+
+<!-- Back to Top Button (Mobile Only) -->
+<button id="backToTop" class="bg-primary text-white size-14 rounded-full shadow-lg flex items-center justify-center hover:bg-primary/90 active:scale-95 transition-all" onclick="scrollToTop()">
+<span class="material-symbols-outlined text-2xl">arrow_upward</span>
+</button>
 </main>
 <script>
 // Mobile accordion functionality
@@ -414,6 +450,34 @@ function toggleSection(sectionId) {
     
     content.classList.toggle('expanded');
     icon.classList.toggle('rotated');
+}
+
+// Back to top functionality
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+// Show/hide back to top button
+if (window.innerWidth < 1024) {
+    const backToTopBtn = document.getElementById('backToTop');
+    let scrollTimeout;
+    
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        
+        if (window.scrollY > 400) {
+            backToTopBtn.classList.add('show');
+        }
+        
+        scrollTimeout = setTimeout(function() {
+            if (window.scrollY <= 400) {
+                backToTopBtn.classList.remove('show');
+            }
+        }, 150);
+    });
 }
 
 // Language translations
