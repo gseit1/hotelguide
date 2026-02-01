@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport & Transfers - Azure Hotel</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1474b8",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a21",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html { scroll-behavior: smooth; }
+        aside nav a.active { background-color: rgb(20 116 184 / 0.1); color: #1474b8; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
+<div class="w-full mx-auto bg-card-light dark:bg-card-dark flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-card-dark/95 backdrop-blur-md px-8 lg:px-16 xl:px-24 py-4">
+    <div class="flex items-center gap-5 text-slate-900 dark:text-white">
+        <div class="size-10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl">diamond</span>
+        </div>
+        <h2 class="text-2xl lg:text-3xl font-bold leading-tight tracking-tight">Azure Hotel</h2>
+    </div>
+    <nav class="hidden lg:flex items-center gap-10 xl:gap-12">
+        <a href="index.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span data-lang="nav-home">Home</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="nightlife.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span data-lang="nav-nightlife">Nightlife</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="outdoor1.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span data-lang="nav-outdoor-link">Outdoor</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="taverns.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span data-lang="nav-taverns">Taverns</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="transport.html" class="text-primary text-base font-medium relative group">
+            <span data-lang="nav-transport-link">Transport</span>
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-primary"></span>
+        </a>
+        <a href="gamos.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span data-lang="nav-wedding">Wedding</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+    </nav>
+    <div class="flex items-center gap-4">
+        <button id="langToggle" class="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-card-dark hover:border-primary transition-all">
+            <span class="material-symbols-outlined text-[20px]">language</span>
+            <span id="currentLang" class="font-semibold text-sm">EN</span>
+        </button>
+    </div>
+</header>
+
+<!-- Hero Section -->
+<section class="relative py-16 lg:py-24 xl:py-32 flex flex-col items-center justify-center bg-gradient-to-br from-yellow-900/20 via-amber-900/10 to-orange-900/20 dark:from-yellow-900/30 dark:via-amber-900/20 dark:to-orange-900/30 z-10 px-8 lg:px-16 xl:px-24 overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1500&q=80')] opacity-20 bg-cover bg-center"></div>
+    <div class="relative z-10 text-center max-w-4xl">
+        <div class="size-20 lg:size-24 mb-8 mx-auto bg-yellow-500/10 rounded-full flex items-center justify-center text-yellow-500 shadow-lg">
+            <span class="material-symbols-outlined text-6xl lg:text-7xl">directions_car</span>
+        </div>
+        <h1 class="text-5xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-slate-900 dark:text-white mb-4" data-lang="transport-title">Transport & Transfers</h1>
+        <p class="text-xl lg:text-2xl text-slate-600 dark:text-slate-300 font-light" data-lang="transport-subtitle">Get around with ease and comfort</p>
+    </div>
+</section>
+
+<!-- Main Content -->
+<main class="flex-1 flex">
+<!-- Sidebar Navigation -->
+<aside class="hidden lg:block w-64 xl:w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 sticky top-[73px] h-[calc(100vh-73px)] overflow-y-auto">
+<nav class="p-6 space-y-2">
+<a href="#taxi" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-2xl">local_taxi</span>
+<span class="font-semibold" data-lang="taxi-services">Taxi Services</span>
+</a>
+<a href="#airport" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-2xl">flight</span>
+<span class="font-semibold" data-lang="airport-transfers">Airport Transfers</span>
+</a>
+<a href="#rental" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-2xl">car_rental</span>
+<span class="font-semibold" data-lang="car-rentals">Car Rentals</span>
+</a>
+<a href="#bus" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all">
+<span class="material-symbols-outlined text-2xl">directions_bus</span>
+<span class="font-semibold" data-lang="bus-routes">Bus Routes</span>
+</a>
+</nav>
+</aside>
+
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto">
+<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+
+<!-- Section 1: Taxi Services -->
+<section id="taxi" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">local_taxi</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-taxi">Taxi Services</h2>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<!-- Taxi Card 1 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="relative h-64">
+<img src="https://images.unsplash.com/photo-1583508915901-b5f84c1dcde1?auto=format&fit=crop&w=800&q=80" alt="24/7 Taxi Service" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="text-white text-2xl font-bold mb-2">24/7 Taxi Service</h3>
+<p class="text-white/80 text-sm">Available round the clock</p>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="text-sm">Available: 24 Hours</span>
+</div>
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="text-sm">Hotel Pickup Available</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="call-taxi">Call a Taxi</button>
+</div>
+</div>
+<!-- Taxi Card 2 -->
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="relative h-64">
+<img src="https://images.unsplash.com/photo-1562620669-9fe99e0e98d5?auto=format&fit=crop&w=800&q=80" alt="Premium Taxi" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="text-white text-2xl font-bold mb-2">Premium Taxi</h3>
+<p class="text-white/80 text-sm">Luxury vehicles & professional drivers</p>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="text-sm">Pre-booking required</span>
+</div>
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="text-sm">Door-to-door service</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="call-taxi">Call a Taxi</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 2: Airport Transfers -->
+<section id="airport" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">flight</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-airport">Airport Transfers</h2>
+</div>
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="relative h-64">
+<img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80" alt="Private Transfer" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="text-white text-2xl font-bold mb-2">Private Transfer</h3>
+<p class="text-white/80 text-sm">Direct hotel-to-airport service</p>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="text-sm">45-minute journey</span>
+</div>
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="text-sm">All major airports</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="book-transfer">Book Transfer</button>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="relative h-64">
+<img src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?auto=format&fit=crop&w=800&q=80" alt="Shared Shuttle" class="w-full h-full object-cover">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-6">
+<h3 class="text-white text-2xl font-bold mb-2">Shared Shuttle</h3>
+<p class="text-white/80 text-sm">Economical airport connection</p>
+</div>
+</div>
+<div class="p-6 space-y-4">
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">schedule</span>
+<span class="text-sm">Every 30 minutes</span>
+</div>
+<div class="flex items-center gap-3 text-slate-600 dark:text-slate-400">
+<span class="material-symbols-outlined text-primary">location_on</span>
+<span class="text-sm">Multiple hotel stops</span>
+</div>
+<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="book-transfer">Book Transfer</button>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 3: Car Rentals -->
+<section id="rental" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">car_rental</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-rental">Car Rentals</h2>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
+<div class="grid md:grid-cols-3 gap-6">
+<div class="text-center p-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<div class="size-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">directions_car</span>
+</div>
+<h3 class="font-bold text-lg mb-2">Economy Cars</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400">Fuel-efficient & budget-friendly</p>
+</div>
+<div class="text-center p-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<div class="size-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">airport_shuttle</span>
+</div>
+<h3 class="font-bold text-lg mb-2">SUVs & Vans</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400">Perfect for families & groups</p>
+</div>
+<div class="text-center p-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<div class="size-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">sports_motorsports</span>
+</div>
+<h3 class="font-bold text-lg mb-2">Luxury Vehicles</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400">Premium cars for special occasions</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 4: Bus Routes -->
+<section id="bus" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">directions_bus</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-bus">Bus Routes</h2>
+</div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">directions_bus</span>
+</div>
+<h3 class="font-bold text-xl mb-2">City Bus Lines</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Comprehensive urban network</p>
+<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-schedule">View Schedule →</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">tour</span>
+</div>
+<h3 class="font-bold text-xl mb-2">Tourist Routes</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Hop-on hop-off sightseeing buses</p>
+<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-schedule">View Schedule →</button>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">commute</span>
+</div>
+<h3 class="font-bold text-xl mb-2">Express Routes</h3>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Fast connections to key destinations</p>
+<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-schedule">View Schedule →</button>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</main>
+</div>
+
+<script>
+const translations = {
+    en: {
+        'nav-home': 'Home', 'nav-nightlife': 'Nightlife', 'nav-outdoor-link': 'Outdoor', 'nav-taverns': 'Taverns',
+        'nav-transport-link': 'Transport', 'nav-wedding': 'Wedding',
+        'transport-title': 'Transport & Transfers', 'transport-subtitle': 'Get around with ease and comfort',
+        'taxi-services': 'Taxi Services', 'airport-transfers': 'Airport Transfers', 'car-rentals': 'Car Rentals', 'bus-routes': 'Bus Routes',
+        'section-taxi': 'Taxi Services', 'section-airport': 'Airport Transfers', 'section-rental': 'Car Rentals',
+        'section-bus': 'Bus Routes', 'call-taxi': 'Call a Taxi', 'book-transfer': 'Book Transfer', 'view-schedule': 'View Schedule →'
+    },
+    el: {
+        'nav-home': 'Αρχική', 'nav-nightlife': 'Νυχτερινή Ζωή', 'nav-outdoor-link': 'Υπαίθριες', 'nav-taverns': 'Ταβέρνες',
+        'nav-transport-link': 'Μεταφορές', 'nav-wedding': 'Γάμος',
+        'transport-title': 'Μεταφορές & Μετακινήσεις', 'transport-subtitle': 'Μετακινηθείτε με ευκολία και άνεση',
+        'taxi-services': 'Υπηρεσίες Ταξί', 'airport-transfers': 'Μεταφορές Αεροδρομίου', 'car-rentals': 'Ενοικίαση Αυτοκινήτων', 'bus-routes': 'Δρομολόγια Λεωφορείων',
+        'section-taxi': 'Υπηρεσίες Ταξί', 'section-airport': 'Μεταφορές Αεροδρομίου', 'section-rental': 'Ενοικίαση Αυτοκινήτων',
+        'section-bus': 'Δρομολόγια Λεωφορείων', 'call-taxi': 'Κλήση Ταξί', 'book-transfer': 'Κράτηση Μεταφοράς', 'view-schedule': 'Δείτε το Πρόγραμμα →'
+    }
+};
+
+let currentLang = 'en';
+const langToggle = document.getElementById('langToggle');
+const currentLangDisplay = document.getElementById('currentLang');
+
+langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'el' : 'en';
+    updateLanguage();
+});
+
+function updateLanguage() {
+    currentLangDisplay.textContent = currentLang === 'en' ? 'EN' : 'ΕΛ';
+    document.querySelectorAll('[data-lang]').forEach(element => {
+        const key = element.getAttribute('data-lang');
+        if (translations[currentLang][key]) {
+            element.textContent = translations[currentLang][key];
+        }
+    });
+    localStorage.setItem('preferredLang', currentLang);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLang');
+    if (savedLang && savedLang !== currentLang) {
+        currentLang = savedLang;
+        updateLanguage();
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mobile Digital Concierge Dashboard</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1474b8",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a21",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        summary::-webkit-details-marker {
+            display: none;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Active nav link styling */
+        aside nav a.active {
+            background-color: rgb(20 116 184 / 0.1);
+            color: #1474b8;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
+<div class="w-full mx-auto bg-card-light dark:bg-card-dark flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-card-dark/95 backdrop-blur-md px-8 lg:px-16 xl:px-24 py-4">
+    <div class="flex items-center gap-5 text-slate-900 dark:text-white">
+        <div class="size-10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-4xl">diamond</span>
+        </div>
+        <h2 class="text-2xl lg:text-3xl font-bold leading-tight tracking-tight">Azure Hotel</h2>
+    </div>
+    <nav class="hidden lg:flex items-center gap-10 xl:gap-12">
+        <a href="nightlife.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span>Nightlife</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="outdoor1.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span>Outdoor</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="taverns.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span>Taverns</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="transport.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span>Transport</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+        <a href="gamos.html" class="text-slate-900 dark:text-white text-base font-medium hover:text-primary transition-colors relative group">
+            <span>Wedding</span>
+            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
+        </a>
+    </nav>
+    <div class="flex items-center gap-4">
+        <button id="langToggle" class="flex items-center gap-2 px-4 py-2 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-card-dark hover:border-primary transition-all">
+            <span class="material-symbols-outlined text-[20px]">language</span>
+            <span id="currentLang" class="font-semibold text-sm">EN</span>
+        </button>
+    </div>
+    <button class="lg:hidden flex items-center px-3 py-2 rounded-lg bg-primary text-white text-sm font-bold shadow-sm transition-all">
+        <span class="material-symbols-outlined">menu</span>
+    </button>
+</header>
+<!-- Hero Header -->
+<section class="relative py-16 lg:py-24 xl:py-32 flex flex-col items-center justify-center bg-gradient-to-br from-primary/5 via-white dark:from-primary/10 dark:via-card-dark to-white dark:to-card-dark z-10 px-8 lg:px-16 xl:px-24 overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/asfalt-light.png')] opacity-30"></div>
+    <div class="relative z-10 text-center max-w-4xl">
+        <div class="size-20 lg:size-24 mb-8 mx-auto bg-primary/10 rounded-full flex items-center justify-center text-primary shadow-lg">
+            <span class="material-symbols-outlined text-6xl lg:text-7xl">diamond</span>
+        </div>
+        <h1 class="text-5xl lg:text-7xl xl:text-8xl font-bold tracking-[0.15em] text-slate-900 dark:text-white uppercase mb-4">Azure</h1>
+        <p class="text-xl lg:text-2xl xl:text-3xl text-slate-600 dark:text-slate-300 tracking-[0.3em] uppercase font-light" data-lang="subtitle">Digital Concierge</p>
+        <p class="text-base lg:text-lg text-slate-500 dark:text-slate-400 mt-6 max-w-2xl mx-auto" data-lang="hero-desc">Your personal guide to luxury experiences and exclusive destinations</p>
+    </div>
+</section>
+<!-- Main Content -->
+<main class="flex-1 flex">
+<!-- Sidebar Navigation (Desktop Only) -->
+<aside class="hidden lg:block w-64 xl:w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 sticky top-[73px] h-[calc(100vh-73px)] overflow-y-auto">
+<nav class="p-6 space-y-2">
+<a href="#about" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl">info</span>
+<span class="font-semibold" data-lang="nav-about">About Us</span>
+</a>
+<a href="#outdoor" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl">explore</span>
+<span class="font-semibold" data-lang="nav-outdoor">Outdoor Activities</span>
+</a>
+<a href="#restaurants" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl">restaurant_menu</span>
+<span class="font-semibold" data-lang="nav-restaurants">Restaurants</span>
+</a>
+<a href="#daynight" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl">wb_twilight</span>
+<span class="font-semibold" data-lang="nav-daynight">Day &amp; Night</span>
+</a>
+<a href="#transport" class="flex items-center gap-4 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-primary/10 hover:text-primary transition-all group">
+<span class="material-symbols-outlined text-2xl">directions_car</span>
+<span class="font-semibold" data-lang="nav-transport">Transport</span>
+</a>
+</nav>
+</aside>
+
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto">
+<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+<!-- Section 1: About Us -->
+<section id="about" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">info</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-about">About Us</h2>
+<a href="facilities.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<span data-lang="explore-facilities">Explore All Facilities</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
+<h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6" data-lang="amenities-title">Hotel Amenities</h3>
+<div class="space-y-4">
+<!-- List Item: Breakfast -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/5 transition-colors">
+<div class="flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined text-[24px]">coffee</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-semibold" data-lang="breakfast">Breakfast</span>
+<span class="text-sm text-slate-500">7:00 - 10:30 AM</span>
+</div>
+</div>
+<!-- List Item: Lunch -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/5 transition-colors">
+<div class="flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined text-[24px]">restaurant</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-semibold" data-lang="lunch">Lunch</span>
+<span class="text-sm text-slate-500">12:30 - 3:00 PM</span>
+</div>
+</div>
+<!-- List Item: Dinner -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/5 transition-colors">
+<div class="flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined text-[24px]">dinner_dining</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-semibold" data-lang="dinner">Dinner</span>
+<span class="text-sm text-slate-500">7:00 - 10:30 PM</span>
+</div>
+</div>
+<!-- List Item: Bar -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/5 transition-colors">
+<div class="flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined text-[24px]">wine_bar</span>
+</div>
+<span class="text-base font-semibold" data-lang="bar">Lobby Bar</span>
+</div>
+<!-- List Item: Gym & Spa -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-primary/5 transition-colors">
+<div class="flex items-center justify-center rounded-xl bg-primary/10 text-primary shrink-0 size-12">
+<span class="material-symbols-outlined text-[24px]">spa</span>
+</div>
+<span class="text-base font-semibold" data-lang="gym">Gym &amp; Spa</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 2: Outdoor Activities -->
+<section id="outdoor" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">explore</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-outdoor">Outdoor Activities</h2>
+<a href="outdoor1.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<span data-lang="explore-outdoor">Explore All Activities</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
+<div class="mb-5 flex justify-between items-end">
+<h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider" data-lang="luxury-boats">Luxury Boats</h3>
+<span class="text-sm text-primary font-semibold hover:underline cursor-pointer" data-lang="view-all">View All →</span>
+</div>
+<!-- Carousel -->
+<div class="flex overflow-x-auto gap-5 pb-2 no-scrollbar snap-x snap-mandatory">
+<div class="snap-start shrink-0 w-80 h-52 rounded-2xl overflow-hidden relative group/card shadow-md">
+<img alt="Yacht" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110" data-alt="White luxury yacht sailing on turquoise water" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBacevig-Tr5vGbOlby7iCBLFSGFrAmNspyw0A6BQ7ISWNp99L1xngNPTI4-hctdBnozStg4CqCwSLh8vOflwBwwJJTHoDCghorErucHLCMPVEjaaRIWTDKgC7R86wijPdKCmQTwaM-KHEgzHGesOebwrVuMY07W9bXHN6lkv9B6ceIWqO5zwo38CUN3ekektHbWeHuPBsJSAMLHfwIvpov3vD6uaeLamXCq7_HGM-BlDqnfsAl9Js6dtBl_XaOpvdAKOOxE0k2-9AK"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover/card:opacity-40 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 w-full p-5">
+<p class="text-white text-lg font-bold drop-shadow-lg">The Azure Pearl</p>
+<p class="text-white/80 text-sm mt-1">Luxury Yacht Experience</p>
+</div>
+</div>
+<div class="snap-start shrink-0 w-80 h-52 rounded-2xl overflow-hidden relative group/card shadow-md">
+<img alt="Speedboat" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110" data-alt="Modern speedboat speeding through the ocean" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvh-tamTB1imH3tQAcnw-wl9eWxYXv283Ms_Cdh8gP_KStggZNwBB6_0zQzqjPdqrkfvjkzz3_7qtdxsYYs3PCUc4E25QBOhvMOLUoo0mlhjrRKJnWni4cIMhUBBeevIUAkw7rudW9uxHYOcpIzY1--CPKXt2YvzHyfKefUG5owhZeJ4oQJbMeWC3Ouq3wq8PkUqKHOQrvm_J-FuaEp5QD9xJl6-z3E7Og4M_Bddulm9YrAkf-oBIvqCVspcDWrZzKkrExYDuPPMM4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover/card:opacity-40 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 w-full p-5">
+<p class="text-white text-lg font-bold drop-shadow-lg">Sea Breeze GT</p>
+<p class="text-white/80 text-sm mt-1">High-Speed Adventure</p>
+</div>
+</div>
+<div class="snap-start shrink-0 w-80 h-52 rounded-2xl overflow-hidden relative group/card shadow-md">
+<img alt="Catamaran" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-110" data-alt="Elegant catamaran anchored in a bay" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQfaHOpaC6jjBEkQEk9HpoLa9oSsircWuY85paEGUx1Yi4Rdgto-jxDYuR6haITb8r4z7TS2hQkhJCv1V1pet7TLIEmDubK0wsbfZKP2F6_3N3fJoJ-lj2fGWjFYgVGfBXEN2oSNFe648w1879DLZlpol-e2-9I9dTJub0ieJc3Z_Dd2Jqf1o2mYgUSzmj6wuUMY9eMeVy92iNZfozp055p30o2v47lmQC2UI2HA9DHMu0yY_EM2N2OvZqoH5y9otFleHjxUCY-sDl"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover/card:opacity-40 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 w-full p-5">
+<p class="text-white text-lg font-bold drop-shadow-lg">Royal Catamaran</p>
+<p class="text-white/80 text-sm mt-1">Premium Sailing</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 3: Restaurants -->
+<section id="restaurants" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">restaurant_menu</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-restaurants">Restaurants</h2>
+<a href="restaurants.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<span data-lang="explore-restaurants">Explore All Restaurants</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
+<div class="grid grid-cols-2 gap-4">
+<!-- Card 1 -->
+<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+<img alt="Fine Dining" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Fine dining restaurant interior with white tablecloths" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJMpVl6_GiFNBoUU7dqgtRumZx9nb3sKZ5iUT7x_TO6v3_vcHribgjBalLBdnG9P9-azoBXA51ubjv6GxyRDX_BEUqTsPvHb-gcn6b2EkU0kFF8vxSihVR5kw2mTA61Xl9p1g0JkYSKI4jy1-Mrl6QXlVzhp8zYEtNTUIJVr4IJRhOAylrVUfJzDAWudDKX_GP1-ma6XWNeN1sY4YLk3GP5BbGD3CoaGYos52iyWr2qjOwAwJ9oEBA2tXJC_YKf_ftnBtXDUYO-4ax"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
+<span class="text-white font-bold text-base tracking-wide">Fine Dining</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+<img alt="Taverns" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Cozy tavern setting with wooden tables and drinks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkD3oAMuU6Caa4sIigZo_KVQGnbFmTn5g7pZvLF5LFfEtvfqRsz7woprc_vJZC3AB2_IDIgbWw8wXYqw5udSucVUFNFKj2fPxHRGSJOE6002V0dyopoptr9iZcIADMGTV5yLSCb7nUh8w5IAOvKtpz_0CC7IB4sZyguC8y6VsiRZJHcpyiRd5pDpiH4hSLoaDrk0U_B5s3WYS_cJUemLzYYMbxZEQizzxIbp7y8HddrpCfFt-_mzMiDCtRr6cv8IHzCHJQct1qTwA8"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
+<span class="text-white font-bold text-base tracking-wide">Taverns</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+<img alt="Fast Food" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Delicious gourmet burger and fries" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjKSL1YpqTYvN2qrq_Ln-U6Y63vc3yI7VAAPDP9RQFT8BOtxP32cG-qZJV6ACJgtGl15vr-6XcX1r1Aw_p5JDpdxyFFQ2yY68R11VMo52zikEAkQww6RpF3-xgrjPUhzTzkh0mbXxvMf_wBUH4hyZ5geOEqGXhbmjxbDEqX4xOFNkVxxSiDetdLiSj2q-GeyXCuhcbtLIZdChPOywsTF5E5_Kx3CfWI1x0eV9EcvXVVEuSzSm6UtnL2Cixjj0815tbTLlW_qwCEB1c"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
+<span class="text-white font-bold text-base tracking-wide">Fast Food</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+<img alt="Desserts" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Decadent chocolate dessert on a plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv6AEFp2eq7ylnL53twl2COqC2ISdao5TqPIIWahnSsUbZf8Mcj63cPFAV17g6pdeukiGtj4M2lYBOocDHcPaf6faFmtEfvlUHXVkWwN9F-DeHb7G2y2ZCxV9bvUP_9CRGQSO65VhXtmRgWdEETh3knuMnfbRYPVX9rjUAeJ6jm5q2AuCgDw_5H9Biu1NBFT2hisNPhvnND90Yu-0e3MSAfvpbLRZ6MWVCL97PvFx3TqsvkR7rH4FGfx1XS-v5EfJpCd1O6R2cIEBr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
+<span class="text-white font-bold text-base tracking-wide">Desserts</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 4: Day & Night -->
+<section id="daynight" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">wb_twilight</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-daynight">Day &amp; Night</h2>
+<a href="nightlife.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<span data-lang="explore-nightlife">Explore Nightlife</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
+<div class="space-y-5">
+<!-- Option 1 -->
+<div class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all">
+<img alt="Nightlife" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Vibrant city nightlife street with neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKWr-16v50HGrZWb1I2ejuuCaBWEBIWwcciTWK39Tm1b4M6oZI2Z-vRvRxDbDckDD0vsiYwCTmCP0qGNKMq7xfRggbo8I_r_now-aGRh82zea0ElfVAxwrLjDW2GPFD5aoNXapwgCdoHPWmWyxOf8TcbIbA2cN6ex8AQgG6XMj4M1zsPvd4hhPhKHAKGZHP_BbwzuzZGRmWpA7hC50kh8YpynDK59P0962SYbYMUhFd1CoUM5xwnXTXQ9BnWLdeXO2aJ7vkf-9ENyO"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center px-8">
+<div>
+<h4 class="text-white font-bold text-2xl">City After Sunset</h4>
+<p class="text-slate-200 text-base mt-2">Experience the vibrant nightlife</p>
+</div>
+</div>
+</div>
+<!-- Option 2 -->
+<div class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all">
+<img alt="Day Drinks" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Refreshing cocktails on a beach bar table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_yZ03A6y1unFSa_Kql_eoWGeBk4nnvD5-BbDw1cNJedS7oCGWS3aQUPQ0jSetfQBskW96lZlutWyIBjkSe4U5ngR9PfkzhaONJ11ghBQOlDKiYElS6nk2lexgi7XEhApxsIglF2-00vHtuOKE3SXvQeO2hT9MeeiqLD3ipijKOxD7x2bfgrmRgLwdZ2mwlhykH-bgPEA_j95iX_5JeH_A0ZqSHze5DxwxZSA7b1lYqGHPeC-TeYMPuA1RhMri7V8gEQR_VgrzYJ8w"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center px-8">
+<div>
+<h4 class="text-white font-bold text-2xl">Day Drinks</h4>
+<p class="text-slate-200 text-base mt-2">Beach bars &amp; loungers</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Section 5: Transport -->
+<section id="transport" class="scroll-mt-20">
+<div class="flex items-center gap-5 mb-8">
+<span class="material-symbols-outlined text-primary text-4xl">directions_car</span>
+<h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-transport">Transport</h2>
+<a href="transport.html" class="ml-auto text-primary font-semibold text-base hover:underline flex items-center gap-2">
+<span data-lang="explore-transport">View All Options</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</a>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
+<div class="grid gap-4">
+<button class="flex w-full items-center justify-center gap-4 rounded-xl bg-primary py-5 text-white shadow-lg shadow-primary/30 transition-all hover:scale-105 hover:shadow-xl active:scale-95">
+<span class="material-symbols-outlined text-[28px]">local_taxi</span>
+<span class="text-base font-bold tracking-wide" data-lang="call-taxi">Call a Taxi</span>
+</button>
+<button class="flex w-full items-center justify-center gap-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-card-dark py-5 text-slate-900 dark:text-white transition-all hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-primary active:scale-95">
+<span class="material-symbols-outlined text-[28px]">airport_shuttle</span>
+<span class="text-base font-bold tracking-wide" data-lang="book-van">Book a Van</span>
+</button>
+<button class="flex w-full items-center justify-center gap-4 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-card-dark py-5 text-slate-900 dark:text-white transition-all hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-primary active:scale-95">
+<span class="material-symbols-outlined text-[28px]">key</span>
+<span class="text-base font-bold tracking-wide" data-lang="rentals">Rentals</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<script>
+// Language translations
+const translations = {
+    en: {
+        'subtitle': 'Digital Concierge',
+        'hero-desc': 'Your personal guide to luxury experiences and exclusive destinations',
+        'nav-about': 'About Us',
+        'nav-outdoor': 'Outdoor Activities',
+        'nav-restaurants': 'Restaurants',
+        'nav-daynight': 'Day & Night',
+        'nav-transport': 'Transport',
+        'section-about': 'About Us',
+        'amenities-title': 'Hotel Amenities',
+        'breakfast': 'Breakfast',
+        'lunch': 'Lunch',
+        'dinner': 'Dinner',
+        'bar': 'Lobby Bar',
+        'gym': 'Gym & Spa',
+        'section-outdoor': 'Outdoor Activities',
+        'luxury-boats': 'Luxury Boats',
+        'view-all': 'View All →',
+        'section-restaurants': 'Restaurants',
+        'section-daynight': 'Day & Night',
+        'section-transport': 'Transport',
+        'call-taxi': 'Call a Taxi',
+        'book-van': 'Book a Van',
+        'rentals': 'Rentals',
+        'explore-facilities': 'Explore All Facilities',
+        'explore-outdoor': 'Explore All Activities',
+        'explore-restaurants': 'Explore All Restaurants',
+        'explore-nightlife': 'Explore Nightlife',
+        'explore-transport': 'View All Options'
+    },
+    el: {
+        'subtitle': 'Ψηφιακός Θυρωρός',
+        'hero-desc': 'Ο προσωπικός σας οδηγός για πολυτελείς εμπειρίες και αποκλειστικούς προορισμούς',
+        'nav-about': 'Σχετικά με εμάς',
+        'nav-outdoor': 'Υπαίθριες Δραστηριότητες',
+        'nav-restaurants': 'Εστιατόρια',
+        'nav-daynight': 'Μέρα & Νύχτα',
+        'nav-transport': 'Μεταφορές',
+        'section-about': 'Σχετικά με εμάς',
+        'amenities-title': 'Παροχές Ξενοδοχείου',
+        'breakfast': 'Πρωινό',
+        'lunch': 'Μεσημεριανό',
+        'dinner': 'Δείπνο',
+        'bar': 'Μπαρ Λόμπι',
+        'gym': 'Γυμναστήριο & Σπα',
+        'section-outdoor': 'Υπαίθριες Δραστηριότητες',
+        'luxury-boats': 'Πολυτελή Σκάφη',
+        'view-all': 'Προβολή Όλων →',
+        'section-restaurants': 'Εστιατόρια',
+        'section-daynight': 'Μέρα & Νύχτα',
+        'section-transport': 'Μεταφορές',
+        'call-taxi': 'Κλήση Ταξί',
+        'book-van': 'Κράτηση Βαν',
+        'rentals': 'Ενοικιάσεις',
+        'explore-facilities': 'Εξερεύνηση Εγκαταστάσεων',
+        'explore-outdoor': 'Όλες οι Δραστηριότητες',
+        'explore-restaurants': 'Όλα τα Εστιατόρια',
+        'explore-nightlife': 'Νυχτερινή Ζωή',
+        'explore-transport': 'Όλες οι Επιλογές'
+    }
+};
+
+let currentLang = 'en';
+
+// Language toggle functionality
+const langToggle = document.getElementById('langToggle');
+const currentLangDisplay = document.getElementById('currentLang');
+
+langToggle.addEventListener('click', () => {
+    currentLang = currentLang === 'en' ? 'el' : 'en';
+    updateLanguage();
+});
+
+function updateLanguage() {
+    // Update language display
+    currentLangDisplay.textContent = currentLang === 'en' ? 'EN' : 'ΕΛ';
+    
+    // Update all elements with data-lang attribute
+    document.querySelectorAll('[data-lang]').forEach(element => {
+        const key = element.getAttribute('data-lang');
+        if (translations[currentLang][key]) {
+            element.textContent = translations[currentLang][key];
+        }
+    });
+    
+    // Store preference
+    localStorage.setItem('preferredLang', currentLang);
+}
+
+// Load saved language preference on page load
+window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('preferredLang');
+    if (savedLang && savedLang !== currentLang) {
+        currentLang = savedLang;
+        updateLanguage();
+    }
+});
+</script>
+</div>
+</body></html>
