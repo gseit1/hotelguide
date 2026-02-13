@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Azure Hotel</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1474b8",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111a21",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1e293b",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        /* Hide old header - navbar.js provides navigation */
+        header:first-of-type { display: none; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
+
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex items-center justify-between whitespace-nowrap border-b border-solid border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-card-dark/95 backdrop-blur-md px-4 sm:px-8 lg:px-16 py-4">
+    <a href="index.html" class="flex items-center gap-3 sm:gap-5 text-slate-900 dark:text-white hover:opacity-80 transition-opacity">
+        <div class="size-8 sm:size-10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-3xl sm:text-4xl">diamond</span>
+        </div>
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight tracking-tight">Azure Hotel</h2>
+    </a>
+    <button onclick="logout()" class="flex items-center gap-2 px-3 sm:px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 rounded-lg text-sm sm:text-base font-semibold transition-all">
+        <span class="material-symbols-outlined text-[20px]">logout</span>
+        <span class="hidden sm:inline">Logout</span>
+    </button>
+</header>
+
+<!-- Main Content -->
+<main class="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-12">
+    <!-- User Info Card -->
+    <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg p-6 sm:p-8 mb-6 sm:mb-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+            <div class="size-16 sm:size-20 bg-primary/10 rounded-full flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-primary text-4xl sm:text-5xl">account_circle</span>
+            </div>
+            <div class="flex-1">
+                <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-2" id="userName">Loading...</h1>
+                <p class="text-slate-600 dark:text-slate-400" id="userEmail"></p>
+                <div class="mt-3 flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-slate-500 dark:text-slate-400">
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                        <span>Member since <span id="memberSince">2026</span></span>
+                    </span>
+                    <span class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[18px]">confirmation_number</span>
+                        <span id="totalBookings">0</span> bookings
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mb-6 sm:mb-8 overflow-x-auto">
+        <div class="flex gap-2 sm:gap-4 border-b border-slate-200 dark:border-slate-800 min-w-max sm:min-w-0">
+            <button onclick="showTab('all')" class="tab-btn active px-4 sm:px-6 py-3 font-semibold border-b-2 transition-all whitespace-nowrap">
+                All Reservations
+            </button>
+            <button onclick="showTab('upcoming')" class="tab-btn px-4 sm:px-6 py-3 font-semibold border-b-2 border-transparent transition-all whitespace-nowrap">
+                Upcoming
+            </button>
+            <button onclick="showTab('past')" class="tab-btn px-4 sm:px-6 py-3 font-semibold border-b-2 border-transparent transition-all whitespace-nowrap">
+                Past
+            </button>
+            <button onclick="showTab('cancelled')" class="tab-btn px-4 sm:px-6 py-3 font-semibold border-b-2 border-transparent transition-all whitespace-nowrap">
+                Cancelled
+            </button>
+        </div>
+    </div>
+
+    <!-- Bookings List -->
+    <div id="bookingsContainer">
+        <div class="text-center py-12 sm:py-16">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4"></div>
+            <p class="text-slate-600 dark:text-slate-400">Loading your reservations...</p>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="hidden text-center py-12 sm:py-16">
+        <span class="material-symbols-outlined text-6xl sm:text-8xl text-slate-300 dark:text-slate-700 mb-4 block">event_busy</span>
+        <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">No Reservations Found</h3>
+        <p class="text-slate-600 dark:text-slate-400 mb-6">Start exploring our venues and make your first booking!</p>
+        <a href="index.html" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-semibold hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined">explore</span>
+            Explore Venues
+        </a>
+    </div>
+</main>
+
+<!-- Confirmation Modal -->
+<div id="cancelModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8">
+        <div class="text-center">
+            <div class="size-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-red-600 text-4xl">cancel</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">Cancel Reservation?</h3>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">Are you sure you want to cancel this booking? This action cannot be undone.</p>
+            <div class="flex gap-3">
+                <button onclick="closeCancelModal()" class="flex-1 px-4 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl font-semibold transition-all">
+                    Keep Booking
+                </button>
+                <button onclick="confirmCancel()" class="flex-1 px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-semibold transition-all">
+                    Cancel Booking
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const API_URL = 'http://localhost:3000/api';
+let userToken = localStorage.getItem('userToken');
+let currentUser = null;
+let allBookings = [];
+let currentTab = 'all';
+let bookingToCancel = null;
+
+// Check authentication
+if (!userToken) {
+    window.location.href = 'login.html';
+}
+
+// Load user data and bookings
+async function loadUserData() {
+    try {
+        const response = await fetch(`${API_URL}/auth/me`, {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        if (!response.ok) {
+            logout();
+            return;
+        }
+        
+        const data = await response.json();
+        currentUser = data.user;
+        
+        document.getElementById('userName').textContent = currentUser.name;
+        document.getElementById('userEmail').textContent = currentUser.email;
+        document.getElementById('memberSince').textContent = new Date(currentUser.created_at).getFullYear();
+        
+        await loadBookings();
+    } catch (error) {
+        console.error('Failed to load user data:', error);
+        logout();
+    }
+}
+
+async function loadBookings() {
+    try {
+        const response = await fetch(`${API_URL}/bookings/my`, {
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        if (!response.ok) throw new Error('Failed to load bookings');
+        
+        const data = await response.json();
+        allBookings = data.bookings;
+        
+        document.getElementById('totalBookings').textContent = allBookings.length;
+        
+        displayBookings();
+    } catch (error) {
+        console.error('Failed to load bookings:', error);
+        document.getElementById('bookingsContainer').innerHTML = `
+            <div class="text-center py-16">
+                <span class="material-symbols-outlined text-6xl text-red-400 mb-4 block">error</span>
+                <p class="text-slate-600 dark:text-slate-400">Failed to load reservations. Please refresh the page.</p>
+            </div>
+        `;
+    }
+}
+
+function displayBookings() {
+    let filteredBookings = allBookings;
+    
+    // Filter based on tab
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    if (currentTab === 'upcoming') {
+        filteredBookings = allBookings.filter(b => {
+            const bookingDate = new Date(b.booking_date);
+            return bookingDate >= today && b.status !== 'cancelled';
+        });
+    } else if (currentTab === 'past') {
+        filteredBookings = allBookings.filter(b => {
+            const bookingDate = new Date(b.booking_date);
+            return bookingDate < today && b.status !== 'cancelled';
+        });
+    } else if (currentTab === 'cancelled') {
+        filteredBookings = allBookings.filter(b => b.status === 'cancelled');
+    }
+    
+    const container = document.getElementById('bookingsContainer');
+    const emptyState = document.getElementById('emptyState');
+    
+    if (filteredBookings.length === 0) {
+        container.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+    }
+    
+    container.classList.remove('hidden');
+    emptyState.classList.add('hidden');
+    
+    container.innerHTML = filteredBookings.map(booking => {
+        const bookingDate = new Date(booking.booking_date);
+        const isPast = bookingDate < today;
+        const statusColors = {
+            'pending': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400',
+            'confirmed': 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400',
+            'cancelled': 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400'
+        };
+        
+        return `
+            <div class="bg-white dark:bg-card-dark rounded-2xl shadow-lg overflow-hidden mb-4 border border-slate-100 dark:border-slate-800">
+                <div class="p-4 sm:p-6">
+                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <h3 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">${booking.venue_name}</h3>
+                                <span class="px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${statusColors[booking.status]}">
+                                    ${booking.status.toUpperCase()}
+                                </span>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 mb-3">${booking.category || booking.venue_type}</p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                                <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                                    <span class="material-symbols-outlined text-primary text-[20px]">calendar_today</span>
+                                    <span>${bookingDate.toLocaleDateString('en-US', { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                                    <span class="material-symbols-outlined text-primary text-[20px]">schedule</span>
+                                    <span>${booking.booking_time}</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                                    <span class="material-symbols-outlined text-primary text-[20px]">group</span>
+                                    <span>${booking.num_guests} ${booking.num_guests === 1 ? 'guest' : 'guests'}</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                                    <span class="material-symbols-outlined text-primary text-[20px]">confirmation_number</span>
+                                    <span>ID: #${booking.id}</span>
+                                </div>
+                            </div>
+                            
+                            ${booking.special_requests ? `
+                                <div class="mt-3 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg">
+                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Special Requests:</p>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400">${booking.special_requests}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    
+                    ${booking.status !== 'cancelled' && !isPast ? `
+                        <div class="flex flex-col sm:flex-row gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
+                            <button onclick="cancelBooking(${booking.id})" class="flex items-center justify-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg font-semibold transition-all">
+                                <span class="material-symbols-outlined text-[20px]">cancel</span>
+                                Cancel Booking
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function showTab(tab) {
+    currentTab = tab;
+    
+    // Update tab buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'border-primary', 'text-primary');
+        btn.classList.add('border-transparent', 'text-slate-600');
+    });
+    
+    event.target.classList.add('active', 'border-primary', 'text-primary');
+    event.target.classList.remove('border-transparent', 'text-slate-600');
+    
+    displayBookings();
+}
+
+function cancelBooking(bookingId) {
+    bookingToCancel = bookingId;
+    document.getElementById('cancelModal').classList.remove('hidden');
+    document.getElementById('cancelModal').classList.add('flex');
+}
+
+function closeCancelModal() {
+    document.getElementById('cancelModal').classList.add('hidden');
+    document.getElementById('cancelModal').classList.remove('flex');
+    bookingToCancel = null;
+}
+
+async function confirmCancel() {
+    if (!bookingToCancel) return;
+    
+    try {
+        const response = await fetch(`${API_URL}/bookings/${bookingToCancel}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${userToken}` }
+        });
+        
+        if (!response.ok) throw new Error('Failed to cancel booking');
+        
+        closeCancelModal();
+        await loadBookings();
+    } catch (error) {
+        console.error('Failed to cancel booking:', error);
+        alert('Failed to cancel booking. Please try again.');
+    }
+}
+
+function logout() {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('user');
+    window.location.href = 'login.html';
+}
+
+// Close modal on backdrop click
+document.getElementById('cancelModal')?.addEventListener('click', (e) => {
+    if (e.target.id === 'cancelModal') {
+        closeCancelModal();
+    }
+});
+
+// Initialize
+loadUserData();
+
+// Add active style for tabs
+const style = document.createElement('style');
+style.textContent = `
+    .tab-btn.active {
+        color: #1474b8;
+        border-color: #1474b8;
+    }
+    .tab-btn:not(.active) {
+        color: #64748b;
+        border-color: transparent;
+    }
+    .tab-btn:not(.active):hover {
+        color: #1474b8;
+    }
+`;
+document.head.appendChild(style);
+</script>
+<script src="navbar.js"></script>
+
+</body>
+</html>

@@ -34,6 +34,8 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         html { scroll-behavior: smooth; }
         aside nav a.active { background-color: rgb(20 116 184 / 0.1); color: #1474b8; }
+        /* Hide old header - navbar.js provides navigation */
+        body > div > header:first-of-type { display: none; }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
@@ -92,7 +94,7 @@
 
 <!-- Content Area -->
 <div class="flex-1 overflow-y-auto">
-<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+<div id="venuesContent" class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
 
 <!-- Section 1: Seafood Taverns -->
 <section id="seafood" class="scroll-mt-20">
@@ -102,7 +104,7 @@
 </div>
 <div class="grid md:grid-cols-2 gap-6">
 <!-- Seafood Card 1 -->
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Poseidon's Table" data-venue-type="Seafood Tavern - Fresh Daily Catch" data-venue-icon="set_meal">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Poseidon's Table" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -120,10 +122,11 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">Waterfront Promenade</span>
 </div>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
 <!-- Seafood Card 2 -->
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Blue Wave Taverna" data-venue-type="Seafood Tavern - Oceanside Dining" data-venue-icon="set_meal">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80" alt="Blue Wave Taverna" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -141,6 +144,7 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">Harbor District</span>
 </div>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
 </div>
@@ -153,7 +157,7 @@
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-mountain">Mountain Taverns</h2>
 </div>
 <div class="grid md:grid-cols-2 gap-6">
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Mountain View Tavern" data-venue-type="Mountain Tavern - Traditional Greek Recipes" data-venue-icon="terrain">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Mountain View Tavern" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -171,10 +175,10 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">High Ridge Village</span>
 </div>
-
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Alpine Garden" data-venue-type="Mountain Tavern - Farm-to-Table Cuisine" data-venue-icon="terrain">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80" alt="Alpine Garden" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -192,7 +196,7 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">Summit Trail</span>
 </div>
-
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
 </div>
@@ -318,5 +322,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+<script src="navbar.js"></script>
+<script src="booking.js"></script>
+<script src="venues-loader.js"></script>
 </body>
 </html>

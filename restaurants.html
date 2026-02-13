@@ -30,6 +30,8 @@
     <style>
         html { scroll-behavior: smooth; }
         aside nav a.active { background-color: rgb(20 116 184 / 0.1); color: #1474b8; }
+        /* Hide old header - navbar.js provides navigation */
+        body > div > header:first-of-type { display: none; }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
@@ -86,7 +88,7 @@
 </aside>
 
 <div class="flex-1 overflow-y-auto">
-<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+<div id="venuesContent" class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
 
 <!-- Fine Dining Section -->
 <section id="fine-dining" class="scroll-mt-20">
@@ -95,7 +97,7 @@
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-fine-dining">Fine Dining Restaurants</h2>
 </div>
 <div class="grid md:grid-cols-2 gap-6">
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Azure Elegance" data-venue-type="Fine Dining - Contemporary Mediterranean Cuisine" data-venue-icon="restaurant">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80" alt="Fine Restaurant" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -113,10 +115,10 @@
 <span class="material-symbols-outlined text-primary">euro</span>
 <span class="text-sm">€€€€</span>
 </div>
-<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Ocean's Finest" data-venue-type="Fine Dining - Premium Seafood & Sushi" data-venue-icon="restaurant">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Seafood Restaurant" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -134,7 +136,7 @@
 <span class="material-symbols-outlined text-primary">euro</span>
 <span class="text-sm">€€€€</span>
 </div>
-<button class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
 </div>
@@ -147,29 +149,29 @@
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-casual">Casual Dining</h2>
 </div>
 <div class="grid md:grid-cols-3 gap-6">
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Burger House" data-venue-type="Casual Dining - Gourmet Burgers & Craft Beer" data-venue-icon="fastfood">
 <div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-2xl">fastfood</span>
 </div>
 <h3 class="font-bold text-xl mb-2">Burger House</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Gourmet burgers & craft beer</p>
-<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-menu-link">View Menu →</button>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Pizzeria Bella" data-venue-type="Casual Dining - Authentic Italian Pizza & Pasta" data-venue-icon="local_pizza">
 <div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-2xl">local_pizza</span>
 </div>
 <h3 class="font-bold text-xl mb-2">Pizzeria Bella</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Authentic Italian pizza & pasta</p>
-<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-menu-link">View Menu →</button>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Asian Fusion" data-venue-type="Casual Dining - Pan-Asian Cuisine & Sushi" data-venue-icon="ramen_dining">
 <div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-2xl">ramen_dining</span>
 </div>
 <h3 class="font-bold text-xl mb-2">Asian Fusion</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Pan-Asian cuisine & sushi</p>
-<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-menu-link">View Menu →</button>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
 </div>
 </div>
 </section>
@@ -304,5 +306,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+<script src="navbar.js"></script>
+<script src="booking.js"></script>
+<script src="venues-loader.js"></script>
 </body>
 </html>

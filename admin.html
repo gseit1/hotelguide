@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Azure Hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1474b8",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-100 font-display">
+    <div id="app">
+        <!-- Login Screen -->
+        <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md">
+                <div class="text-center mb-8">
+                    <span class="material-symbols-outlined text-primary text-6xl mb-4 inline-block">admin_panel_settings</span>
+                    <h1 class="text-3xl font-bold text-slate-900">Admin Panel</h1>
+                    <p class="text-slate-600 mt-2">Azure Hotel Booking System</p>
+                </div>
+                <form id="loginForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
+                        <input type="email" id="loginEmail" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2">Password</label>
+                        <input type="password" id="loginPassword" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all">
+                        Login
+                    </button>
+                </form>
+                <div id="loginError" class="hidden mt-4 p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm"></div>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div id="dashboard" class="hidden min-h-screen">
+            <!-- Header -->
+            <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <span class="material-symbols-outlined text-primary text-3xl">diamond</span>
+                        <h1 class="text-2xl font-bold text-slate-900">Azure Hotel Admin</h1>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span id="adminName" class="text-slate-600"></span>
+                        <button onclick="logout()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-lg font-semibold text-slate-700 transition-all">
+                            Logout
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="flex">
+                <!-- Sidebar -->
+                <aside class="w-64 bg-white border-r border-slate-200 min-h-screen p-6">
+                    <nav class="space-y-2">
+                        <a href="#" onclick="showTab('stats', event)" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-primary/10 hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">dashboard</span>
+                            <span class="font-semibold">Dashboard</span>
+                        </a>
+                        <a href="#" onclick="showTab('bookings', event)" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-primary/10 hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">event</span>
+                            <span class="font-semibold">Bookings</span>
+                        </a>
+                        <a href="#" onclick="showTab('availability', event)" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-primary/10 hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">schedule</span>
+                            <span class="font-semibold">Availability</span>
+                        </a>
+                        <a href="#" onclick="showTab('venues', event)" class="nav-link flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-primary/10 hover:text-primary transition-all">
+                            <span class="material-symbols-outlined">store</span>
+                            <span class="font-semibold">Venues</span>
+                        </a>
+                    </nav>
+                </aside>
+
+                <!-- Main Content -->
+                <main class="flex-1 p-8">
+                    <!-- Stats Tab -->
+                    <div id="statsTab" class="tab-content">
+                        <h2 class="text-3xl font-bold text-slate-900 mb-6">Dashboard Overview</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="material-symbols-outlined text-blue-500 text-4xl">event</span>
+                                    <span class="text-3xl font-bold text-slate-900" id="stat-total-bookings">0</span>
+                                </div>
+                                <p class="text-slate-600 font-semibold">Total Bookings</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="material-symbols-outlined text-yellow-500 text-4xl">pending</span>
+                                    <span class="text-3xl font-bold text-slate-900" id="stat-pending-bookings">0</span>
+                                </div>
+                                <p class="text-slate-600 font-semibold">Pending Bookings</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="material-symbols-outlined text-green-500 text-4xl">check_circle</span>
+                                    <span class="text-3xl font-bold text-slate-900" id="stat-confirmed-bookings">0</span>
+                                </div>
+                                <p class="text-slate-600 font-semibold">Confirmed Bookings</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="material-symbols-outlined text-purple-500 text-4xl">people</span>
+                                    <span class="text-3xl font-bold text-slate-900" id="stat-total-users">0</span>
+                                </div>
+                                <p class="text-slate-600 font-semibold">Total Guests</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Venues Overview -->
+                        <div class="bg-white rounded-2xl shadow-lg p-6 border border-slate-200">
+                            <h3 class="text-xl font-bold text-slate-900 mb-4">Venues Overview</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                                <div class="text-center p-3 bg-purple-50 rounded-xl">
+                                    <div class="text-2xl mb-1">🎵</div>
+                                    <div class="text-2xl font-bold text-slate-900" id="stat-nightlife">0</div>
+                                    <div class="text-xs text-slate-600">Nightlife</div>
+                                </div>
+                                <div class="text-center p-3 bg-orange-50 rounded-xl">
+                                    <div class="text-2xl mb-1">🍽️</div>
+                                    <div class="text-2xl font-bold text-slate-900" id="stat-restaurants">0</div>
+                                    <div class="text-xs text-slate-600">Restaurants</div>
+                                </div>
+                                <div class="text-center p-3 bg-amber-50 rounded-xl">
+                                    <div class="text-2xl mb-1">🍺</div>
+                                    <div class="text-2xl font-bold text-slate-900" id="stat-taverns">0</div>
+                                    <div class="text-xs text-slate-600">Taverns</div>
+                                </div>
+                                <div class="text-center p-3 bg-blue-50 rounded-xl">
+                                    <div class="text-2xl mb-1">💆</div>
+                                    <div class="text-2xl font-bold text-slate-900" id="stat-facilities">0</div>
+                                    <div class="text-xs text-slate-600">Facilities</div>
+                                </div>
+                            </div>
+                            <div id="venuesPreview" class="space-y-2 max-h-96 overflow-y-auto">
+                                <p class="text-slate-500 text-sm">Loading venues...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bookings Tab -->
+                    <div id="bookingsTab" class="tab-content hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-3xl font-bold text-slate-900">Manage Bookings</h2>
+                            <div class="flex gap-3">
+                                <select id="filterVenue" onchange="loadBookings()" class="px-4 py-2 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                                    <option value="">All Venues</option>
+                                </select>
+                                <select id="filterStatus" onchange="loadBookings()" class="px-4 py-2 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                                    <option value="">All Status</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <table class="w-full">
+                                <thead class="bg-slate-50 border-b border-slate-200">
+                                    <tr>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">ID</th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">Guest</th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">Venue</th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">Date & Time</th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">Guests</th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">Status</th>
+                                        <th class="px-6 py-4 text-left text-sm font-semibold text-slate-700">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookingsTableBody">
+                                    <tr><td colspan="7" class="text-center py-8 text-slate-500">Loading...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Availability Tab -->
+                    <div id="availabilityTab" class="tab-content hidden">
+                        <h2 class="text-3xl font-bold text-slate-900 mb-6">Manage Availability</h2>
+                        
+                        <div class="bg-white rounded-2xl shadow-lg p-6 mb-6">
+                            <h3 class="text-xl font-bold text-slate-900 mb-4">Set Bulk Availability</h3>
+                            <form id="bulkAvailabilityForm" class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Venue</label>
+                                    <select id="bulkVenue" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                                        <option value="">Select Venue</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Capacity per Slot</label>
+                                    <input type="number" id="bulkCapacity" value="10" min="1" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Start Date</label>
+                                    <input type="date" id="bulkStartDate" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">End Date</label>
+                                    <input type="date" id="bulkEndDate" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none">
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-semibold text-slate-700 mb-2">Time Slots (one per line, format: HH:MM)</label>
+                                    <textarea id="bulkTimeSlots" rows="5" placeholder="18:00&#10;19:00&#10;20:00&#10;21:00" required class="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-primary focus:outline-none"></textarea>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <button type="submit" class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:bg-primary/90 transition-all">
+                                        Set Availability
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Venues Tab -->
+                    <div id="venuesTab" class="tab-content hidden">
+                        <h2 class="text-3xl font-bold text-slate-900 mb-6">Manage Venues</h2>
+                        <div class="bg-white rounded-2xl shadow-lg p-6">
+                            <div id="venuesList" class="space-y-4">
+                                <p class="text-slate-500">Loading venues...</p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        let currentToken = null;
+        let currentUser = null;
+
+        // Check if already logged in
+        document.addEventListener('DOMContentLoaded', async () => {
+            currentToken = localStorage.getItem('adminToken');
+            if (currentToken) {
+                try {
+                    const response = await fetch(`${API_URL}/auth/me`, {
+                        headers: { 'Authorization': `Bearer ${currentToken}` }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.user.role === 'admin') {
+                            currentUser = data.user;
+                            showDashboard();
+                            return;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Auth check failed:', error);
+                }
+                localStorage.removeItem('adminToken');
+            }
+        });
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch(`${API_URL}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok && data.user.role === 'admin') {
+                    currentToken = data.token;
+                    currentUser = data.user;
+                    localStorage.setItem('adminToken', currentToken);
+                    showDashboard();
+                } else {
+                    showError(data.error || 'Admin access required');
+                }
+            } catch (error) {
+                showError('Login failed. Please try again.');
+            }
+        });
+
+        function showError(message) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = message;
+            errorDiv.classList.remove('hidden');
+        }
+
+        function showDashboard() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            document.getElementById('adminName').textContent = currentUser.name;
+            loadStats();
+            loadVenues();
+            showTab('stats');
+        }
+
+        function logout() {
+            localStorage.removeItem('adminToken');
+            currentToken = null;
+            currentUser = null;
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('dashboard').classList.add('hidden');
+            document.getElementById('loginForm').reset();
+        }
+
+        function showTab(tabName, e) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('bg-primary/10', 'text-primary');
+            });
+
+            const tabs = {
+                'stats': 'statsTab',
+                'bookings': 'bookingsTab',
+                'availability': 'availabilityTab',
+                'venues': 'venuesTab'
+            };
+
+            document.getElementById(tabs[tabName]).classList.remove('hidden');
+            
+            // Highlight the active nav link
+            if (e && e.target) {
+                e.target.closest('.nav-link').classList.add('bg-primary/10', 'text-primary');
+            } else {
+                // Find nav link by the onclick attribute containing the tabName
+                const navLinks = document.querySelectorAll('.nav-link');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('onclick')?.includes(`'${tabName}'`)) {
+                        link.classList.add('bg-primary/10', 'text-primary');
+                    }
+                });
+            }
+
+            if (tabName === 'bookings') loadBookings();
+            if (tabName === 'venues') loadVenuesList();
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch(`${API_URL}/stats`, {
+                    headers: { 'Authorization': `Bearer ${currentToken}` }
+                });
+                const data = await response.json();
+                
+                document.getElementById('stat-total-bookings').textContent = data.stats.totalBookings;
+                document.getElementById('stat-pending-bookings').textContent = data.stats.pendingBookings;
+                document.getElementById('stat-confirmed-bookings').textContent = data.stats.confirmedBookings;
+                document.getElementById('stat-total-users').textContent = data.stats.totalUsers;
+                
+                // Load venues for dashboard
+                await loadDashboardVenues();
+            } catch (error) {
+                console.error('Failed to load stats:', error);
+            }
+        }
+        
+        async function loadDashboardVenues() {
+            try {
+                const response = await fetch(`${API_URL}/venues`);
+                const data = await response.json();
+                
+                // Count by type
+                const counts = {
+                    nightlife: data.venues.filter(v => v.type === 'nightlife').length,
+                    restaurant: data.venues.filter(v => v.type === 'restaurant').length,
+                    tavern: data.venues.filter(v => v.type === 'tavern').length,
+                    facility: data.venues.filter(v => v.type === 'facility').length
+                };
+                
+                document.getElementById('stat-nightlife').textContent = counts.nightlife;
+                document.getElementById('stat-restaurants').textContent = counts.restaurant;
+                document.getElementById('stat-taverns').textContent = counts.tavern;
+                document.getElementById('stat-facilities').textContent = counts.facility;
+                
+                // Display venues list
+                const preview = document.getElementById('venuesPreview');
+                preview.innerHTML = data.venues.map(venue => `
+                    <div class="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-all">
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl">${venue.icon || '🏪'}</span>
+                            <div>
+                                <div class="font-semibold text-sm text-slate-900">${venue.name}</div>
+                                <div class="text-xs text-slate-500">${venue.category}</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-slate-500">Capacity</div>
+                            <div class="font-bold text-sm text-slate-900">${venue.capacity}</div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load dashboard venues:', error);
+                document.getElementById('venuesPreview').innerHTML = '<p class="text-red-500 text-sm">Failed to load venues</p>';
+            }
+        }
+
+        async function loadVenues() {
+            try {
+                const response = await fetch(`${API_URL}/venues`);
+                const data = await response.json();
+                
+                const filterSelect = document.getElementById('filterVenue');
+                const bulkSelect = document.getElementById('bulkVenue');
+                
+                data.venues.forEach(venue => {
+                    const option = new Option(venue.name, venue.id);
+                    filterSelect.add(option.cloneNode(true));
+                    bulkSelect.add(option);
+                });
+            } catch (error) {
+                console.error('Failed to load venues:', error);
+            }
+        }
+
+        async function loadBookings() {
+            try {
+                const venue = document.getElementById('filterVenue').value;
+                const status = document.getElementById('filterStatus').value;
+                
+                let url = `${API_URL}/bookings?`;
+                if (venue) url += `venue_id=${venue}&`;
+                if (status) url += `status=${status}`;
+                
+                const response = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${currentToken}` }
+                });
+                const data = await response.json();
+                
+                const tbody = document.getElementById('bookingsTableBody');
+                tbody.innerHTML = data.bookings.map(booking => `
+                    <tr class="border-b border-slate-100 hover:bg-slate-50">
+                        <td class="px-6 py-4 text-sm text-slate-900">#${booking.id}</td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm font-semibold text-slate-900">${booking.customer_name}</div>
+                            <div class="text-xs text-slate-500">${booking.customer_email}</div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-slate-900">${booking.venue_name}</td>
+                        <td class="px-6 py-4">
+                            <div class="text-sm text-slate-900">${booking.booking_date}</div>
+                            <div class="text-xs text-slate-500">${booking.booking_time}</div>
+                        </td>
+                        <td class="px-6 py-4 text-sm text-slate-900">${booking.num_guests}</td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold ${
+                                booking.status === 'confirmed' ? 'bg-green-100 text-green-700' :
+                                booking.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                                'bg-red-100 text-red-700'
+                            }">
+                                ${booking.status.toUpperCase()}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4">
+                            ${booking.status !== 'confirmed' ? `
+                            <button onclick="updateBookingStatus(${booking.id}, 'confirmed')" 
+                                class="text-green-600 hover:text-green-700 mr-2">
+                                <span class="material-symbols-outlined text-xl">check_circle</span>
+                            </button>` : ''}
+                            ${booking.status !== 'cancelled' ? `
+                            <button onclick="updateBookingStatus(${booking.id}, 'cancelled')" 
+                                class="text-red-600 hover:text-red-700">
+                                <span class="material-symbols-outlined text-xl">cancel</span>
+                            </button>` : ''}
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load bookings:', error);
+            }
+        }
+
+        async function updateBookingStatus(bookingId, status) {
+            try {
+                const response = await fetch(`${API_URL}/bookings/${bookingId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ status })
+                });
+
+                if (response.ok) {
+                    loadBookings();
+                    loadStats();
+                }
+            } catch (error) {
+                console.error('Failed to update booking:', error);
+            }
+        }
+
+        async function loadVenuesList() {
+            try {
+                const response = await fetch(`${API_URL}/venues`);
+                const data = await response.json();
+                
+                const list = document.getElementById('venuesList');
+                list.innerHTML = data.venues.map(venue => `
+                    <div class="p-4 border border-slate-200 rounded-xl hover:border-primary transition-all">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="font-bold text-lg text-slate-900">${venue.name}</h3>
+                                <p class="text-sm text-slate-600">${venue.type} • Capacity: ${venue.capacity}</p>
+                            </div>
+                            <span class="material-symbols-outlined text-primary text-3xl">${venue.icon || 'store'}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load venues:', error);
+            }
+        }
+
+        // Bulk Availability Form
+        document.getElementById('bulkAvailabilityForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const venueId = document.getElementById('bulkVenue').value;
+            const capacity = parseInt(document.getElementById('bulkCapacity').value);
+            const startDate = document.getElementById('bulkStartDate').value;
+            const endDate = document.getElementById('bulkEndDate').value;
+            const timeSlotsText = document.getElementById('bulkTimeSlots').value;
+            
+            const timeSlots = timeSlotsText.split('\n')
+                .map(line => line.trim())
+                .filter(line => line)
+                .map(time => ({ time, capacity }));
+
+            try {
+                const response = await fetch(`${API_URL}/availability/bulk`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${currentToken}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        venue_id: venueId,
+                        start_date: startDate,
+                        end_date: endDate,
+                        time_slots: timeSlots
+                    })
+                });
+
+                if (response.ok) {
+                    alert('Availability set successfully!');
+                    e.target.reset();
+                } else {
+                    alert('Failed to set availability');
+                }
+            } catch (error) {
+                console.error('Failed to set availability:', error);
+                alert('Failed to set availability');
+            }
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('bulkStartDate').setAttribute('min', today);
+        document.getElementById('bulkEndDate').setAttribute('min', today);
+    </script>
+</body>
+</html>

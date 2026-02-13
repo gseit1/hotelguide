@@ -59,6 +59,9 @@
             color: #1474b8;
         }
         
+        /* Hide old header - navbar.js provides navigation */
+        body > div > header:first-of-type { display: none; }
+        
         /* Mobile accordion styles */
         @media (max-width: 1023px) {
             .section-content {
@@ -310,44 +313,44 @@
 <section id="restaurants" class="scroll-mt-20">
 <div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('restaurants')">
 <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">restaurant_menu</span>
-<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-restaurants">Restaurants</h2>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-restaurants">Restaurants & Dining</h2>
 <a href="restaurants.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-restaurants">Explore All Restaurants</span>
 <span class="material-symbols-outlined">arrow_forward</span>
 </a>
-<span class="material-symbols-outlined text-slate-400 ml-auto lg:hidden expand-icon">expand_more</span>
+<span class="material-symbols-outlined text-slate-400 ml:auto lg:hidden expand-icon">expand_more</span>
 </div>
 <div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="grid grid-cols-2 gap-4">
-<!-- Card 1 -->
-<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+<!-- Card 1: Fine Dining -->
+<a href="restaurants.html" class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
 <img alt="Fine Dining" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Fine dining restaurant interior with white tablecloths" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJMpVl6_GiFNBoUU7dqgtRumZx9nb3sKZ5iUT7x_TO6v3_vcHribgjBalLBdnG9P9-azoBXA51ubjv6GxyRDX_BEUqTsPvHb-gcn6b2EkU0kFF8vxSihVR5kw2mTA61Xl9p1g0JkYSKI4jy1-Mrl6QXlVzhp8zYEtNTUIJVr4IJRhOAylrVUfJzDAWudDKX_GP1-ma6XWNeN1sY4YLk3GP5BbGD3CoaGYos52iyWr2qjOwAwJ9oEBA2tXJC_YKf_ftnBtXDUYO-4ax"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
 <span class="text-white font-bold text-base tracking-wide">Fine Dining</span>
 </div>
-</div>
-<!-- Card 2 -->
-<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+</a>
+<!-- Card 2: Taverns -->
+<a href="taverns.html" class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
 <img alt="Taverns" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Cozy tavern setting with wooden tables and drinks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkD3oAMuU6Caa4sIigZo_KVQGnbFmTn5g7pZvLF5LFfEtvfqRsz7woprc_vJZC3AB2_IDIgbWw8wXYqw5udSucVUFNFKj2fPxHRGSJOE6002V0dyopoptr9iZcIADMGTV5yLSCb7nUh8w5IAOvKtpz_0CC7IB4sZyguC8y6VsiRZJHcpyiRd5pDpiH4hSLoaDrk0U_B5s3WYS_cJUemLzYYMbxZEQizzxIbp7y8HddrpCfFt-_mzMiDCtRr6cv8IHzCHJQct1qTwA8"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
 <span class="text-white font-bold text-base tracking-wide">Taverns</span>
 </div>
-</div>
-<!-- Card 3 -->
-<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+</a>
+<!-- Card 3: Fast Food -->
+<a href="restaurants.html" class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
 <img alt="Fast Food" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Delicious gourmet burger and fries" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjKSL1YpqTYvN2qrq_Ln-U6Y63vc3yI7VAAPDP9RQFT8BOtxP32cG-qZJV6ACJgtGl15vr-6XcX1r1Aw_p5JDpdxyFFQ2yY68R11VMo52zikEAkQww6RpF3-xgrjPUhzTzkh0mbXxvMf_wBUH4hyZ5geOEqGXhbmjxbDEqX4xOFNkVxxSiDetdLiSj2q-GeyXCuhcbtLIZdChPOywsTF5E5_Kx3CfWI1x0eV9EcvXVVEuSzSm6UtnL2Cixjj0815tbTLlW_qwCEB1c"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
 <span class="text-white font-bold text-base tracking-wide">Fast Food</span>
 </div>
-</div>
-<!-- Card 4 -->
-<div class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
+</a>
+<!-- Card 4: Desserts -->
+<a href="restaurants.html" class="relative h-36 rounded-xl overflow-hidden group/item cursor-pointer shadow-md hover:shadow-xl transition-all">
 <img alt="Desserts" class="w-full h-full object-cover transition-transform duration-500 group-hover/item:scale-110" data-alt="Decadent chocolate dessert on a plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv6AEFp2eq7ylnL53twl2COqC2ISdao5TqPIIWahnSsUbZf8Mcj63cPFAV17g6pdeukiGtj4M2lYBOocDHcPaf6faFmtEfvlUHXVkWwN9F-DeHb7G2y2ZCxV9bvUP_9CRGQSO65VhXtmRgWdEETh3knuMnfbRYPVX9rjUAeJ6jm5q2AuCgDw_5H9Biu1NBFT2hisNPhvnND90Yu-0e3MSAfvpbLRZ6MWVCL97PvFx3TqsvkR7rH4FGfx1XS-v5EfJpCd1O6R2cIEBr"/>
 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
-<span class="text-white font-bold text-base tracking-wide">Desserts</span>
+<span class="text-white font-bold text-base tracking-wide">Desserts & Café</span>
 </div>
-</div>
+</a>
 </div>
 <!-- Mobile Explore Link -->
 <a href="restaurants.html" class="lg:hidden mt-6 flex items-center justify-center gap-2 bg-primary text-white py-3 px-6 rounded-xl font-semibold hover:bg-primary/90 transition-all">
@@ -359,7 +362,7 @@
 <section id="daynight" class="scroll-mt-20">
 <div class="section-header flex items-center gap-3 sm:gap-4 lg:gap-5 mb-6 lg:mb-8" onclick="toggleSection('daynight')">
 <span class="material-symbols-outlined text-primary text-3xl sm:text-4xl">wb_twilight</span>
-<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-daynight">Day &amp; Night</h2>
+<h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-daynight">Nightlife & Entertainment</h2>
 <a href="nightlife.html" class="ml-auto text-primary font-semibold text-base hover:underline hidden lg:flex items-center gap-2">
 <span data-lang="explore-nightlife">Explore Nightlife</span>
 <span class="material-symbols-outlined">arrow_forward</span>
@@ -369,25 +372,36 @@
 <div class="section-content">
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="space-y-5">
-<!-- Option 1 -->
-<div class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all">
-<img alt="Nightlife" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Vibrant city nightlife street with neon lights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKWr-16v50HGrZWb1I2ejuuCaBWEBIWwcciTWK39Tm1b4M6oZI2Z-vRvRxDbDckDD0vsiYwCTmCP0qGNKMq7xfRggbo8I_r_now-aGRh82zea0ElfVAxwrLjDW2GPFD5aoNXapwgCdoHPWmWyxOf8TcbIbA2cN6ex8AQgG6XMj4M1zsPvd4hhPhKHAKGZHP_BbwzuzZGRmWpA7hC50kh8YpynDK59P0962SYbYMUhFd1CoUM5xwnXTXQ9BnWLdeXO2aJ7vkf-9ENyO"/>
+<!-- Rooftop Bar -->
+<a href="nightlife.html" class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all block">
+<img alt="Rooftop Bar" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Sunset rooftop bar with panoramic city views" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_yZ03A6y1unFSa_Kql_eoWGeBk4nnvD5-BbDw1cNJedS7oCGWS3aQUPQ0jSetfQBskW96lZlutWyIBjkSe4U5ngR9PfkzhaONJ11ghBQOlDKiYElS6nk2lexgi7XEhApxsIglF2-00vHtuOKE3SXvQeO2hT9MeeiqLD3ipijKOxD7x2bfgrmRgLwdZ2mwlhykH-bgPEA_j95iX_5JeH_A0ZqSHze5DxwxZSA7b1lYqGHPeC-TeYMPuA1RhMri7V8gEQR_VgrzYJ8w"/>
 <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center px-8">
 <div>
-<h4 class="text-white font-bold text-2xl">City After Sunset</h4>
-<p class="text-slate-200 text-base mt-2">Experience the vibrant nightlife</p>
+<h4 class="text-white font-bold text-2xl">Sunset Rooftop Bar</h4>
+<p class="text-slate-200 text-base mt-2">Panoramic views with signature cocktails</p>
 </div>
 </div>
-</div>
-<!-- Option 2 -->
-<div class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all">
-<img alt="Day Drinks" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Refreshing cocktails on a beach bar table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_yZ03A6y1unFSa_Kql_eoWGeBk4nnvD5-BbDw1cNJedS7oCGWS3aQUPQ0jSetfQBskW96lZlutWyIBjkSe4U5ngR9PfkzhaONJ11ghBQOlDKiYElS6nk2lexgi7XEhApxsIglF2-00vHtuOKE3SXvQeO2hT9MeeiqLD3ipijKOxD7x2bfgrmRgLwdZ2mwlhykH-bgPEA_j95iX_5JeH_A0ZqSHze5DxwxZSA7b1lYqGHPeC-TeYMPuA1RhMri7V8gEQR_VgrzYJ8w"/>
+</a>
+<!-- Dance Club -->
+<a href="nightlife.html" class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all block">
+<img alt="Dance Club" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Vibrant nightclub with neon lights and dance floor" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKWr-16v50HGrZWb1I2ejuuCaBWEBIWwcciTWK39Tm1b4M6oZI2Z-vRvRxDbDckDD0vsiYwCTmCP0qGNKMq7xfRggbo8I_r_now-aGRh82zea0ElfVAxwrLjDW2GPFD5aoNXapwgCdoHPWmWyxOf8TcbIbA2cN6ex8AQgG6XMj4M1zsPvd4hhPhKHAKGZHP_BbwzuzZGRmWpA7hC50kh8YpynDK59P0962SYbYMUhFd1CoUM5xwnXTXQ9BnWLdeXO2aJ7vkf-9ENyO"/>
 <div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center px-8">
 <div>
-<h4 class="text-white font-bold text-2xl">Day Drinks</h4>
-<p class="text-slate-200 text-base mt-2">Beach bars &amp; loungers</p>
+<h4 class="text-white font-bold text-2xl">Blue Moon Dance Club</h4>
+<p class="text-slate-200 text-base mt-2">Premium nightclub with international DJs</p>
 </div>
 </div>
+</a>
+<!-- Jazz Lounge -->
+<a href="nightlife.html" class="relative h-44 rounded-2xl overflow-hidden group/card cursor-pointer shadow-md hover:shadow-xl transition-all block">
+<img alt="Jazz Lounge" class="w-full h-full object-cover transition-transform duration-500 group-hover/card:scale-105" data-alt="Intimate jazz lounge with live performance" src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent flex items-center px-8">
+<div>
+<h4 class="text-white font-bold text-2xl">La Quinta Jazz Lounge</h4>
+<p class="text-slate-200 text-base mt-2">Sophisticated jazz performances nightly</p>
+</div>
+</div>
+</a>
 </div>
 <!-- Mobile Explore Link -->
 <a href="nightlife.html" class="lg:hidden mt-6 flex items-center justify-center gap-2 bg-primary text-white py-3 px-6 rounded-xl font-semibold hover:bg-primary/90 transition-all">
@@ -580,5 +594,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+<script src="navbar.js"></script>
 </div>
 </body></html>

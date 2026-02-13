@@ -30,6 +30,8 @@
     <style>
         html { scroll-behavior: smooth; }
         aside nav a.active { background-color: rgb(20 116 184 / 0.1); color: #1474b8; }
+        /* Hide old header - navbar.js provides navigation */
+        body > div > header:first-of-type { display: none; }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
@@ -86,7 +88,7 @@
 </aside>
 
 <div class="flex-1 overflow-y-auto">
-<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+<div id="venuesContent" class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
 
 <!-- Dining Section -->
 <section id="dining" class="scroll-mt-20">
@@ -103,21 +105,23 @@
 <p class="text-sm text-slate-600 dark:text-slate-400 text-center mb-4">Daily: 7:00 - 10:30 AM</p>
 <p class="text-sm text-slate-600 dark:text-slate-400">Continental and Mediterranean breakfast buffet with fresh local products</p>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Hotel Restaurant" data-venue-type="Fine Dining - Mediterranean & International Cuisine" data-venue-icon="dinner_dining">
 <div class="size-16 mb-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
 <span class="material-symbols-outlined text-primary text-3xl">dinner_dining</span>
 </div>
 <h3 class="font-bold text-xl mb-3 text-center" data-lang="restaurant-service">Restaurant</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 text-center mb-4">Lunch & Dinner Service</p>
-<p class="text-sm text-slate-600 dark:text-slate-400">Fine dining with Mediterranean cuisine and international dishes</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Fine dining with Mediterranean cuisine and international dishes</p>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="make-reservation">Make a Reservation</button>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Lobby Bar" data-venue-type="Bar - Premium Cocktails & Wines" data-venue-icon="wine_bar">
 <div class="size-16 mb-6 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
 <span class="material-symbols-outlined text-primary text-3xl">wine_bar</span>
 </div>
 <h3 class="font-bold text-xl mb-3 text-center" data-lang="bar-service">Lobby Bar</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 text-center mb-4">All Day Service</p>
-<p class="text-sm text-slate-600 dark:text-slate-400">Premium cocktails, wines, and light snacks in elegant atmosphere</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Premium cocktails, wines, and light snacks in elegant atmosphere</p>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
 </section>
@@ -135,7 +139,7 @@
 </div>
 <div class="p-8 lg:p-12 flex flex-col justify-center">
 <h3 class="text-2xl font-bold mb-6" data-lang="spa-center">Spa Center</h3>
-<div class="space-y-4">
+<div class="space-y-4 mb-6">
 <div class="flex items-start gap-3">
 <span class="material-symbols-outlined text-primary mt-1">check_circle</span>
 <div>
@@ -164,6 +168,9 @@
 <p class="text-sm text-slate-600 dark:text-slate-400">Facials, manicure, pedicure services</p>
 </div>
 </div>
+</div>
+<div data-venue-name="Spa & Wellness Center" data-venue-type="Spa Services - Massage, Sauna & Beauty Treatments" data-venue-icon="spa">
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="book-treatment">Book Spa Treatment</button>
 </div>
 </div>
 </div>
@@ -311,5 +318,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+<script src="navbar.js"></script>
+<script src="booking.js"></script>
+<script src="venues-loader.js"></script>
 </body>
 </html>

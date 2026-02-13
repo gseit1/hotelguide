@@ -34,6 +34,8 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         html { scroll-behavior: smooth; }
         aside nav a.active { background-color: rgb(20 116 184 / 0.1); color: #1474b8; }
+        /* Hide old header - navbar.js provides navigation */
+        body > div > header:first-of-type { display: none; }
     </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen">
@@ -92,7 +94,7 @@
 
 <!-- Content Area -->
 <div class="flex-1 overflow-y-auto">
-<div class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
+<div id="venuesContent" class="px-8 lg:px-12 xl:px-16 py-12 space-y-16 lg:space-y-24">
 
 <!-- Section 1: Night Clubs -->
 <section id="clubs" class="scroll-mt-20">
@@ -102,7 +104,7 @@
 </div>
 <div class="grid md:grid-cols-2 gap-6">
 <!-- Club Card 1 -->
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Club Velvet" data-venue-type="Night Club - Electronic & House Music" data-venue-icon="nightlife">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?auto=format&fit=crop&w=800&q=80" alt="Club Velvet" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -120,10 +122,11 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">Downtown District</span>
 </div>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
 <!-- Club Card 2 -->
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Pulse Nightclub" data-venue-type="Night Club - Hip Hop & R&B" data-venue-icon="nightlife">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1571266028243-d220b2e93730?auto=format&fit=crop&w=800&q=80" alt="Pulse Nightclub" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -141,6 +144,7 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">Marina District</span>
 </div>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
 </div>
@@ -153,7 +157,7 @@
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-rooftop">Rooftop Bars</h2>
 </div>
 <div class="grid md:grid-cols-2 gap-6">
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Sky Lounge" data-venue-type="Rooftop Bar - Panoramic City Views" data-venue-icon="deck">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Sky Lounge" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -171,9 +175,10 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">25th Floor, Central Tower</span>
 </div>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Sunset Terrace" data-venue-type="Rooftop Bar - Beachfront Sunset Views" data-venue-icon="deck">
 <div class="relative h-64">
 <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80" alt="Sunset Terrace" class="w-full h-full object-cover">
 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
@@ -191,6 +196,7 @@
 <span class="material-symbols-outlined text-primary">location_on</span>
 <span class="text-sm">Beachfront Boulevard</span>
 </div>
+<button data-booking-btn class="w-full bg-primary text-white py-3 rounded-xl font-semibold hover:scale-105 transition-transform mt-4" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
 </div>
@@ -204,19 +210,21 @@
 </div>
 <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-8 border border-slate-100 dark:border-slate-800">
 <div class="grid md:grid-cols-2 gap-6">
-<div class="text-center p-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<div class="text-center p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-all" data-venue-name="Jazz Corner" data-venue-type="Live Music - Jazz" data-venue-icon="piano">
 <div class="size-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-3xl">piano</span>
 </div>
 <h3 class="font-bold text-lg mb-2">Jazz Corner</h3>
-<p class="text-sm text-slate-600 dark:text-slate-400">Live jazz every night</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Live jazz every night</p>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="reserve-table">Reserve Table</button>
 </div>
-<div class="text-center p-6 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors cursor-pointer">
+<div class="text-center p-6 rounded-xl bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:shadow-lg transition-all" data-venue-name="Acoustic Cafe" data-venue-type="Live Music - Acoustic & Singer-Songwriter" data-venue-icon="mic">
 <div class="size-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-3xl">mic</span>
 </div>
 <h3 class="font-bold text-lg mb-2">Acoustic Cafe</h3>
-<p class="text-sm text-slate-600 dark:text-slate-400">Acoustic & singer-songwriter</p>
+<p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Acoustic & singer-songwriter</p>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
 </div>
@@ -229,29 +237,29 @@
 <h2 class="text-3xl lg:text-4xl font-bold tracking-tight" data-lang="section-cocktail">Cocktail Lounges</h2>
 </div>
 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="The Mixologist" data-venue-type="Cocktail Lounge - Craft Cocktails" data-venue-icon="local_bar">
 <div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-2xl">local_bar</span>
 </div>
 <h3 class="font-bold text-xl mb-2">The Mixologist</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Craft cocktails & premium spirits</p>
-<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-menu">View Menu →</button>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="reserve-table">Reserve Table</button>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Velvet Room" data-venue-type="Cocktail Lounge - Elegant Atmosphere" data-venue-icon="wine_bar">
 <div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-2xl">wine_bar</span>
 </div>
 <h3 class="font-bold text-xl mb-2">Velvet Room</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Elegant lounge atmosphere</p>
-<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-menu">View Menu →</button>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="reserve-table">Reserve Table</button>
 </div>
-<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+<div class="bg-white dark:bg-slate-900 rounded-2xl shadow-lg p-6 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all" data-venue-name="Champagne Bar" data-venue-type="Cocktail Lounge - Premium Champagne" data-venue-icon="celebration">
 <div class="size-14 mb-4 bg-primary/10 rounded-full flex items-center justify-center">
 <span class="material-symbols-outlined text-primary text-2xl">celebration</span>
 </div>
 <h3 class="font-bold text-xl mb-2">Champagne Bar</h3>
 <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">Premium champagne selection</p>
-<button class="text-primary font-semibold text-sm hover:underline" data-lang="view-menu">View Menu →</button>
+<button data-booking-btn class="w-full bg-primary text-white py-2 px-4 rounded-xl font-semibold hover:scale-105 transition-transform" data-lang="reserve-table">Reserve Table</button>
 </div>
 </div>
 </section>
@@ -309,5 +317,8 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+<script src="navbar.js"></script>
+<script src="booking.js"></script>
+<script src="venues-loader.js"></script>
 </body>
 </html>
