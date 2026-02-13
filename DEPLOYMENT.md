@@ -29,11 +29,21 @@ This project is configured to be deployed with:
 5. Add environment variables:
    - `NODE_ENV` = `production`
    - `JWT_SECRET` = (generate a random string)
-6. Add a persistent disk:
-   - **Mount Path**: `/opt/render/project/src`
-   - **Size**: 1GB (for SQLite database)
-7. Click "Create Web Service"
-8. Copy your Render URL once deployed
+6. Click "Create Web Service"
+7. Copy your Render URL once deployed
+
+### ⚠️ Important: SQLite Database Persistence
+
+**Free Tier Limitation**: Render's free tier uses **ephemeral storage** - your SQLite database will be reset on every deployment or when the service restarts.
+
+**Solutions:**
+1. **Upgrade to Starter Plan** ($7/month) to add persistent disk storage
+2. **Migrate to PostgreSQL** - Render offers free PostgreSQL with persistent storage (requires code changes)
+3. **Accept data loss** - Use free tier for demos/testing only
+
+To add persistent disk (Starter plan only):
+- **Mount Path**: `/opt/render/project/src`
+- **Size**: 1GB minimum
 
 ## Frontend Deployment (Netlify)
 

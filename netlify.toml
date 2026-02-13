@@ -4,7 +4,7 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://your-app-name.onrender.com/api/:splat"
+  to = "https://hotelguide.onrender.com"
   status = 200
   force = true
 

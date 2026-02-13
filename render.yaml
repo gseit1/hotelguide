@@ -14,7 +14,6 @@ services:
         value: https://your-site.netlify.app
       - key: PORT
         value: 3000
-    disk:
-      name: booking-data
-      mountPath: /opt/render/project/src
-      sizeGB: 1
+    # Note: Persistent disk is a premium feature ($7/month)
+    # On free tier, SQLite database resets on each deploy/restart
+    # For production, upgrade to paid plan or migrate to PostgreSQL
